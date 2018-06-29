@@ -1,0 +1,37 @@
+{
+  "configs": [
+    "payment-exp-api.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "payment-exp-app",
+  "minMuleVersion": "4.1.1",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "api/exchange.json",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-datatype/1.0.2/exchange.json",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-datatype/1.0.2/locationsTypes.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-datatype/1.0.2/phonesTypes.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-traits/1.0.0/exchange.json",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-traits/1.0.0/secure.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-traits/1.0.0/traits.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-datatypes/1.0.3/customer-datatypes.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-datatypes/1.0.3/exchange.json",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/payment-datatypes/1.0.9/exchange.json",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/payment-datatypes/1.0.9/payment-datatypes.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/payment-examples/1.0.6/exchange.json",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/payment-examples/1.0.6/new-payment-example.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/payment-examples/1.0.6/payment-example.raml",
+        "api/payment-exp-api.raml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}

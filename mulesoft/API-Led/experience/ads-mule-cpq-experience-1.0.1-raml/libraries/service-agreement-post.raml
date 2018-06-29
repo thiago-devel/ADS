@@ -1,0 +1,14 @@
+#%RAML 1.0 Library
+uses:
+  sa-input-values-post-type: sa-input-values-post.raml
+types:
+  service-agreement-post:
+    properties:
+      sourceInstance:
+        description: where should the call land
+        type: string
+        required: true
+      inputValues:
+        description: input value variables of a service agreement
+        type: sa-input-values-post-type.sa-input-values-post
+        required: true

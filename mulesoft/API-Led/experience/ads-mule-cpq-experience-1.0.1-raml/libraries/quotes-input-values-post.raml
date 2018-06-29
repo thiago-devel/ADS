@@ -1,0 +1,64 @@
+#%RAML 1.0 Library
+types:
+  quotes-input-values-post:
+    properties:
+      _currency_pref:
+        description: currency of the quote
+        type: string
+        required: true
+        example: 'USD'
+      _customer_id:
+        description: instance of CPQ
+        type: string
+        required: true
+        example: 'advanceddisposaldev'
+      cRMAction_t:
+        description: 'identify if this is a new quote or a clone quote processs'
+        type: string
+        required: true
+        example: 'New Quote'
+      crmPricelistId_quote:
+        description: D365 quote ID
+        type: string
+        required: true
+        example: 'GUID'
+      crmQuoteId_quote:
+        description: D365 quote ID
+        type: string
+        required: true
+        example: 'GUID' 
+      crmUserId_quote:
+        description: D365 user ID
+        type: string
+        required: true
+        example: 'rene.lucena@advanceddisposal.com'
+      customerID_t:
+        description: customer id
+        type: string
+        required: true
+        example: 'GUID'
+      opportunityID_t:
+        description: opportunityID in CPQ
+        type: string
+        required: true
+        example: 'opportunityID-1234'
+      quoteOwnersCRMID_t:
+        description: quote owners in CPQ
+        type: string
+        required: true
+        example: 'owners'
+      signerId_t:
+        description: signerID
+        type: string
+        required: true
+        example: 'signerId'
+      status_t:
+        description: status of the quote
+        type: string
+        required: false
+        example: 'Approved'      
+      transactionID:
+        description: agreement  counter signer ID
+        type: string
+        required: false
+        example: '36974107'     

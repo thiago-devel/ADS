@@ -1,0 +1,26 @@
+{
+    "destination_addresses": [
+        "Diego Plains Road, Ponte Vedra Beach, FL 32081, USA"
+    ],
+    "origin_addresses": [
+        "4567 Crystal Brook Way, Jacksonville, FL 32224, USA"
+    ],
+    "rows": [
+        {
+            "elements": [
+                {
+                    "distance": {
+                        "text": "18.9 mi",
+                        "value": 30476
+                    },
+                    "duration": {
+                        "text": "24 mins",
+                        "value": 1435
+                    },
+                    "status": "OK"
+                }
+            ]
+        }
+    ],
+    "status": "OK"
+}

@@ -1,0 +1,19 @@
+{ 
+	"sourceInstance":"crmdev",
+	"inputValues": 
+		{
+		  "_currency_pref" : "USD",
+		  "_customer_id": "guid",
+		  "cRMAction_t" : "New Quote or Clone Quote",
+		  "crmPricelistId_quote" : "id",
+		  "crmQuoteId_quote" : "guid",
+		  "crmUserId_quote" : "guid",
+		  "customerID_t": "guid",
+		  "opportunityID_t" : "guid",
+		  "quoteOwnersCRMID_t":"quote owner",
+		  "signerId_t": "signerId",
+		  "status_t": "In Progress",
+		  "transactionID": "12345"
+
+		}
+}

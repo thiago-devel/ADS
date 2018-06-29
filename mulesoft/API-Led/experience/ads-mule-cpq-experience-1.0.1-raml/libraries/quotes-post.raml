@@ -1,0 +1,15 @@
+#%RAML 1.0 Library
+uses:
+  quotes-input-values-post-type: quotes-input-values-post.raml
+types:
+  quote-post:
+    properties:
+      sourceInstance:
+        description: where should the call land
+        type: string
+        required: true
+        example: 'cpqDev'
+      inputValues:
+        description: input value variables of a service agreement
+        type: quotes-input-values-post-type.quotes-input-values-post
+        required: true

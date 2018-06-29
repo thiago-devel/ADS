@@ -1,0 +1,15 @@
+[
+  {
+    "@odata.type": "#Microsoft.Dynamics.CRM.account",
+    "@odata.id": "https://advancedconnectdev2.crm.dynamics.com/api/data/v8.2/accounts(3f8ad126-25c7-e711-9a56-001dd8b71fd8)",
+    "@odata.etag": "W/\"5072100\"",
+    "@odata.editLink": "accounts(3f8ad126-25c7-e711-9a56-001dd8b71fd8)",
+    "accountid@odata.type": "#Guid",
+    "accountid": "3f8ad126-25c7-e711-9a56-001dd8b71fd8",
+    "address1_addressid@odata.type": "#Guid",
+    "address1_addressid": "79934e77-11ec-474e-bc96-baae8276149f",
+    "name": "zTest Account for Migration",
+    "new_county": "account1-county3",
+    "websiteurl": "www.account1ver3.com"
+  }
+]

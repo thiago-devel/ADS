@@ -1,0 +1,1 @@
+{"main":"payment-datatypes.raml","name":"payment-datatypes","classifier":"raml-fragment","tags":["library"],"dependencies":[{"groupId":"cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad","assetId":"commons-datatype","version":"1.0.2"}],"groupId":"cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad","assetId":"payment-datatypes","version":"1.0.9"}

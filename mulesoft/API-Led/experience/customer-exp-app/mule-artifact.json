@@ -1,0 +1,34 @@
+{
+  "configs": [
+    "customer-api.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "customer-app",
+  "minMuleVersion": "4.1.1",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "api/.DS_Store",
+        "api/customer-api.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-datatype/1.0.2/locationsTypes.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-datatype/1.0.2/phonesTypes.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-examples/1.0.2/addressExample.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-examples/1.0.2/phoneType.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-traits/1.0.0/secure.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-traits/1.0.0/traits.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-datatypes/1.0.2/customer-datatypes.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-examples/1.0.3/customer-list.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-examples/1.0.3/existing-customer.raml",
+        "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-examples/1.0.3/new-customer.raml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}

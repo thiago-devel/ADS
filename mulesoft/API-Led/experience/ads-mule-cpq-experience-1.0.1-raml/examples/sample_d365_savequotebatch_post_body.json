@@ -1,0 +1,145 @@
+{
+	"sourceInstance":"CPQDev",
+	"inputValues":
+	{
+		"MSCRMCallerID":"21fb5c24-530b-e811-8107-3863bb3c5058",
+		"crmQuoteId":"21c3a367-c43e-e811-810f-3863bb3c31e0",
+		"cpq_quotenumber":"AD-2029",
+		"cpq_status":"Approved",
+		"ads_cpqapprovers":""
+	},
+	"payLoads":
+	{
+		"DeletedModelsProcess_1_1000":
+		{
+			"payLoad":
+			[
+				{
+					"cpq_quote":"21c3a367-c43e-e811-810f-3863bb3c31e0",
+					"cpq_modellineidentifier":"00002"
+				}
+			]
+		},		
+		"QuoteModelsProcess_1_1000":
+		{
+			"payLoad":
+			[
+				{
+					"ads_energycharge":"Standard",
+					"ads_nonstandardenergycharge":0,
+					"ads_environmentalcharge":"Standard",
+					"ads_nonstandardenvironmentalcharge":0,
+					"cpq_taxjurisdiction":"",
+					"cpq_longitude":"-84.9502955",
+					"cpq_latitude":"32.9603321",
+					"cpq_contractno":"ADS",
+					"cpq_quote":"21c3a367-c43e-e811-810f-3863bb3c31e0",
+					"cpq_modellineidentifier":"37258169-L0000009-2",
+					"cpq_integration":true
+				}
+			]
+		},
+		"QuoteServicesProcess_1_1000":
+		{
+			"payLoad":
+			[
+				{
+					"cpq_quote":"21c3a367-c43e-e811-810f-3863bb3c31e0",
+					"cpq_serviceitem":"57d7e46b-aa06-e811-8162-e0071b6ad161",
+					"cpq_name":"37258169-L0000009-2-F1--MSW-40--false-ADS Owned-New-0*-ROLL OFF ROUNDTRIP",
+					"cpq_servicelineidentifier":"37258169-L0000009-2-F1--MSW-40--false-ADS Owned-New-0*",
+					"cpq_modellineidentifier":"37258169-L0000009-2",
+					"ads_compactor":false,
+					"ads_compactorpurchase":false,
+					"ads_equipmentpurchasecost":"0.0",
+					"ads_equipmentsellprice":"0.0",
+					"ads_installationcost":"0.0",
+					"ads_installationsellprice":"0.0",
+					"ads_ceapprovalneeded":false,
+					"ads_owned":"ADS - New/Existing",
+					"ads_truxid":"Q3",
+					"ads_businessunit":"21520",
+					"ads_equipmentsaleprofit":"0.0",
+					"ads_assetlife":"0",
+					"ads_servicegroup":"A",
+					"ads_servicecode":"F1",
+					"ads_containersize":"40",
+					"ads_liftfrequency":"",
+					"ads_service":"NEW",
+					"ads_reason":"ReInstate Customer from Bad Debt",
+					"ads_standardmargin":"10.0",
+					"ads_discountedmargin":"8.0",
+					"ads_floormargin":"5.0",
+					"ads_servicequantity":1,
+					"cpq_integration":true
+				}
+			]
+		},
+		"QuoteActivitiesProcess_1_1000":
+		{
+			"payLoad":
+			[
+				{
+					"productid":"543cb1db-45a5-e711-8109-e0071b6aa291",
+					"cpq_servicelineid":"cpq_servicelineidentifier=37258169-L0000009-2-F1--MSW-40--false-ADS Owned-New-0*",
+					"quoteid":"21c3a367-c43e-e811-810f-3863bb3c31e0",
+					"ads_cost":"570.04",
+					"priceperunit":"633.38",
+					"baseamount":"633.38",
+					"ads_margin":"10.0003157662067",
+					"uomid":"7b40176801-262E-E811-8111-3863BB35DDC8",
+					"quantity":"10",
+					"cpq_quotelineidentifier":"37258169-L0000009-2-F1--MSW-40--false-ADS Owned-New-0*-CG-3",
+					"cpq_modellineidentifier":"37258169-L0000009-2",
+					"ads_uom":"Ton",
+					"extendedamount":"6333.8"
+				},
+				{
+					"productid":"79d851c1-46a5-e711-8109-e0071b6aa291",
+					"cpq_servicelineid":"cpq_servicelineidentifier=37258169-L0000009-2-F1--MSW-40--false-ADS Owned-New-0*",
+					"quoteid":"21c3a367-c43e-e811-810f-3863bb3c31e0",
+					"ads_cost":"570.04",
+					"priceperunit":"633.38",
+					"baseamount":"633.38",
+					"ads_margin":"10.0003157662067",
+					"uomid":"7b40176801-262E-E811-8111-3863BB35DDC8",
+					"quantity":"10",
+					"cpq_quotelineidentifier":"37258169-L0000009-2-F1--MSW-40--false-ADS Owned-New-0*-C7-4",
+					"cpq_modellineidentifier":"37258169-L0000009-2",
+					"ads_uom":"Ton",
+					"extendedamount":"6333.8"
+				},
+				{
+					"productid":"0d24fa15-47a5-e711-8109-e0071b6aa291",
+					"cpq_servicelineid":"cpq_servicelineidentifier=37258169-L0000009-2-F1--MSW-40--false-ADS Owned-New-0*",
+					"quoteid":"21c3a367-c43e-e811-810f-3863bb3c31e0",
+					"ads_cost":"570.04",
+					"priceperunit":"633.38",
+					"baseamount":"633.38",
+					"ads_margin":"10.0003157662067",
+					"uomid":"7b40176801-262E-E811-8111-3863BB35DDC8",
+					"quantity":"10",
+					"cpq_quotelineidentifier":"37258169-L0000009-2-F1--MSW-40--false-ADS Owned-New-0*-CA-5",
+					"cpq_modellineidentifier":"37258169-L0000009-2",
+					"ads_uom":"Ton",
+					"extendedamount":"6333.8"
+				},
+				{
+					"productid":"aa4d2934-47a5-e711-8109-e0071b6aa291",
+					"cpq_servicelineid":"cpq_servicelineidentifier=37258169-L0000009-2-F1--MSW-40--false-ADS Owned-New-0*",
+					"quoteid":"21c3a367-c43e-e811-810f-3863bb3c31e0",
+					"ads_cost":"2594.66",
+					"priceperunit":"2182.96",
+					"baseamount":"2182.96",
+					"ads_margin":"-18.8597134166453",
+					"uomid":"7b40176801-262E-E811-8111-3863BB35DDC8",
+					"quantity":"10",
+					"cpq_quotelineidentifier":"37258169-L0000009-2-F1--MSW-40--false-ADS Owned-New-0*-C4-6",
+					"cpq_modellineidentifier":"37258169-L0000009-2",
+					"ads_uom":"Ton",
+					"extendedamount":"21829.6"
+				}
+			]
+		}
+	}
+}

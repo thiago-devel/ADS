@@ -1,0 +1,109 @@
+#%RAML 1.0 Library
+types:
+  sa-input-values-post:
+    properties:
+      apimainDoc:
+        description: API Purpose
+        type: string
+        required: false
+        example: 'Transaction'
+      apiProcessVarname:
+        description: API Process
+        type: string
+        required: false
+        example: 'Oraclecpqo'
+      counterSignerEmail:
+        description: agreement counter signer email
+        type: string
+        required: false
+        example: 'Gary.White@advanceddisposal.com'
+      counterSignerId:
+        description: agreement  counter signer ID
+        type: string
+        required: false
+        example: 'ca6f5d9d-cceb-4a33-bb19-d4f3e4f4cdfb'
+      counterSignerName:
+        description: agreement counter signer name
+        type: string
+        required: false
+        example: 'Gary White'
+      cpqInstance:
+        description: instance of CPQ
+        type: string
+        required: false
+        example: 'advanceddisposaldev'
+      crmQuoteId:
+        description: D365 quote ID
+        type: string
+        required: true
+        example: '21c3a367-c43e-e811-810f-3863bb3c31e0'
+      customerId:
+        description: customer id
+        type: string
+        required: false
+        example: '7e01d6d1-9828-e811-810f-3863bb35ddc8'
+      documentType:
+        description: type of document
+        type: string
+        required: false
+        example: 'Municipal|Commercial'
+      MSCRMCallerID:
+        description: MSCRMCallerID
+        type: string
+        required: false
+        example: '21fb5c24-530b-e811-8107-3863bb3c5058'
+      opportunityId:
+        description: opportunityId
+        type: string
+        required: true
+        example: 'c6a1a96b-7533-e811-8112-3863bb35ddc8'
+      processVarname:
+        description: process name
+        type: string
+        required: true
+        example: 'oraclecpqo'
+      quoteOwner:
+        description: quot owner
+        type: string
+        required: false
+        example: 'Jaten Aneja'
+      quoteOwnerEmail:
+        description: quote owner email
+        type: string
+        required: false
+        example: 'Jaten.Aneja@advanceddisposal.com'
+      salesRepCommissionFormName:
+        description: comission template
+        type: string
+        required: false
+        example: 'Customer Care Rep Comm'      
+      serviceAgreementName:
+        description: service agreement name
+        type: string
+        required: false
+        example: 'Service Agreement'
+      serviceInputFormName:
+        description: name of the service input form
+        type: string
+        required: false
+        example: 'Service Input Form'
+      signerEmail:
+        description: ageement signer email
+        type: string
+        required: true
+        example: 'rbadavis@wurthwoodgroup.com'
+      signerName:
+        description: agreement signer name
+        type: string
+        required: false
+        example: 'Brandon Davis'
+      signerId:
+        description: agreement signer Id
+        type: string
+        required: false
+        example: '4a4fcc1e-d247-e311-899e-005056ab004d'                 
+      transactionId:
+        description: cpq Transaction Id
+        type: integer
+        required: true
+        example: 37258169

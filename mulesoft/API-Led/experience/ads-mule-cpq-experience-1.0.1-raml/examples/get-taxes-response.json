@@ -1,0 +1,26 @@
+{
+    "kind": "fusiontables#sqlresponse",
+    "columns": [
+        "TRUX_ID",
+        "COUNTY",
+        "STATE",
+        "SERVICE",
+        "JCODE"
+    ],
+    "rows": [
+        [
+            "Q3",
+            "Russell",
+            "AL",
+            "E,2,B",
+            "M6"
+        ],
+        [
+            "Q3",
+            "",
+            "",
+            "",
+            ""
+        ]
+    ]
+}

@@ -1,0 +1,90 @@
+#%RAML 1.0 Library
+types: 
+  sa-input-values-put:
+    description: input values json node from send and cancel service agreement
+    properties:
+      status:
+        description: status of the quote
+        type: string
+        required: false
+        example: 'In progress'
+      transactionId:
+        description: CPQ transaction ID
+        type: integer
+        required: false
+        example: 37258169
+      cpqInstance:
+        description: source instance
+        type: string
+        required: false
+        example: 'advanceddisposaldev'
+      signerName:
+        description: customer name
+        type: string
+        required: false
+        example: 'Brandon Davis'
+      signerEmail:
+        description: customer email
+        type: string
+        required: false
+        example: "badavis@wurthwoodgroup.com"
+      signerId:
+        description: D365 customer-contact GUID
+        type: string
+        required: false
+        example: "4a4fcc1e-d247-e311-899e-005056ab004d"
+      counterSignerName:
+        description: ADS Countersigner
+        type: string
+        required: false
+        example: "Gary White"
+      counterSignerEmail:
+        description: ADS email
+        type: string
+        required: false
+        example: "Gary.White@advanceddisposal.com"
+      counterSignerId:
+        description: ADS D365 systemuser GUID
+        type: string
+        required: false
+        example: "ca6f5d9d-cceb-4a33-bb19-d4f3e4f4cdfb"
+      quoteOwner:
+        description: Quote owner - often same as countersigner
+        type: string
+        required: false
+        example: "Jaten Aneja"
+      quoteOwnerEmail:
+        description: Quote owner email
+        type: string
+        required: false
+        example: "Jaten.Aneja@advanceddisposal.com"
+      adobeAgreementId:
+        description: Adobe agreement GUID
+        type: string
+        required: false
+        example: "3AAABLblqZhCvXjo4lapMCs9yXlcODpvPXru6cZG5v9HmeXKCAkxkMCvJHg9-dSL7boKLM7RbmtFHOJBS6KscxRTVvhZoE752"
+      opportunityId:
+        description: Opportunity GUID from D365
+        type: string
+        required: false
+        example: "c6a1a96b-7533-e811-8112-3863bb35ddc8"
+      crmQuoteId:
+        description: Quote/transaction GUID from D365
+        type: string
+        required: false
+        example: "21c3a367-c43e-e811-810f-3863bb3c31e0"
+      customerId:
+        description: Customer GUID from D365
+        type: string
+        required: false
+        example: "7e01d6d1-9828-e811-810f-3863bb35ddc8"
+      documentType:
+        description: Contract type
+        type: string
+        required: false
+        example: "Municipal|Commercial"
+      MSCRMCallerID:
+        description: tracking ID
+        type: string
+        required: false
+        example: "21fb5c24-530b-e811-8107-3863bb3c5058"

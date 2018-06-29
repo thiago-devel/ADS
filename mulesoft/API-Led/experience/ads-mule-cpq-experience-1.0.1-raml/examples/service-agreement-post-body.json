@@ -1,0 +1,26 @@
+{
+  "sourceInstance": "advanceddisposaldev",
+  "inputValues": {
+    "serviceInputFormName": "Service Input Form",
+    "serviceAgreementName": "Service Agreement",
+    "salesRepCommissionFormName": "Customer Care Rep Comm",
+    "transactionId": 37258169,
+    "processVarname": "oraclecpqo",
+    "apiProcessVarname": "Oraclecpqo",
+    "apimainDoc": "Transaction",
+    "cpqInstance": "advanceddisposaldev",
+    "signerName": "Brandon Davis",
+    "signerEmail": "badavis@wurthwoodgroup.com",
+    "signerId": "4a4fcc1e-d247-e311-899e-005056ab004d",
+    "counterSignerName": "Gary White",
+    "counterSignerEmail": "Gary.White@advanceddisposal.com",
+    "counterSignerId": "ca6f5d9d-cceb-4a33-bb19-d4f3e4f4cdfb",
+    "quoteOwner": "Jaten Aneja",
+    "quoteOwnerEmail": "ken@kencurtis.net",
+    "opportunityId": "c6a1a96b-7533-e811-8112-3863bb35ddc8",
+    "crmQuoteId": "21c3a367-c43e-e811-810f-3863bb3c31e0",
+    "customerId": "7e01d6d1-9828-e811-810f-3863bb35ddc8",
+    "documentType": "Municipal|Commercial",
+    "MSCRMCallerID": "21fb5c24-530b-e811-8107-3863bb3c5058"
+  }
+}

@@ -1,0 +1,37 @@
+#%RAML 1.0 Library
+usage: Payment Types
+
+uses:
+  phone: /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-datatype/1.0.2/phonesTypes.raml
+  address: /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-datatype/1.0.2/locationsTypes.raml
+
+types:
+  CardDate:
+    properties: 
+      mount: number
+      year: number
+  CardPayment:
+    type: NewCardPayment
+    properties:
+      paymentID: number
+  NewCardPaymentData:
+    properties:
+      cardData: NewCardPayment
+      billingAddress: address.AddressData
+  CardPaymentData:
+    properties:
+      cardData: CardPayment
+      billingAddressID: number
+  NewCardPayment:
+    properties:
+      cardHoldersName:
+      cardNumber:
+      expirationDate: CardDate
+      verificationCode: number
+  CustomerPayment:
+    properties:
+      customerID: number
+      cardsPayments: CardPaymentData[]
+  NewCustomerPayment:
+    properties:
+      cardPayment: NewCardPaymentData

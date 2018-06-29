@@ -1,0 +1,13 @@
+[
+    {
+        "@odata.type": "#Microsoft.Dynamics.CRM.systemuser",
+        "@odata.id": "https://advancedconnectdev2.crm.dynamics.com/api/data/v8.2/systemusers(be381daa-9498-e711-80ff-c4346bdc1201)",
+        "@odata.etag": "W/\"4820584\"",
+        "@odata.editLink": "systemusers(be381daa-9498-e711-80ff-c4346bdc1201)",
+        "internalemailaddress": "Ken.Curtis@advanceddisposal.com",
+        "systemuserid@odata.type": "#Guid",
+        "systemuserid": "be381daa-9498-e711-80ff-c4346bdc1201",
+        "ownerid@odata.type": "#Guid",
+        "ownerid": "be381daa-9498-e711-80ff-c4346bdc1201"
+    }
+]

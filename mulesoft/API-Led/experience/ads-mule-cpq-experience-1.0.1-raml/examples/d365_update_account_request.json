@@ -1,0 +1,92 @@
+{
+  "triggerName": "SaveQuoteBatchUpdate",
+  "inputValues": {
+    "MSCRMCallerId": "GUID",
+    "crmQuoteId": "12345",
+    "signer_Email": "joe@gmail.com",
+    "counterSignerEmail": "sales.person@advanceddisposal.com",
+    "signerId": "guid",
+    "counterSignerId": "guid",
+    "adobeAgreementId": "guid",
+    "startDate": "date string",
+    "documentType": "SalesAgreement",
+    "spsDocUrl": "https://sharepoint.com/folder/folder/doc.html"
+  },
+  "payLoads": {
+    "QuoteActivitiesProcess_1_1000": {
+      "payLoad": [
+        {
+          "pricingComponentId": "GUID",
+          "productId": "123",
+          "cpq_quotelineidentifier": "123",
+          "priceperunit": "17.00",
+          "baseamount": "20.00",
+          "cpq_integration": true
+        },
+        {
+          "pricingComponentId": "GUID",
+          "productId": "321",
+          "cpq_quotelineidentifier": "321",
+          "priceperunit": "71.99",
+          "baseamount": "55.44",
+          "cpq_integration": true
+        }
+      ]
+    },
+    "QuoteActivitiesProcess_1001_2000": {
+      "payLoad": [
+        {
+          "pricingComponentId": "GUID",
+          "productId": "123",
+          "cpq_quotelineidentifier": "123",
+          "priceperunit": "17.00",
+          "baseamount": "20.00",
+          "cpq_integration": true
+        },
+        {
+          "pricingComponentId": "GUID",
+          "productId": "321",
+          "cpq_quotelineidentifier": "321",
+          "priceperunit": "71.99",
+          "baseamount": "55.44",
+          "cpq_integration": true
+        }
+      ]
+    },
+    "QuoteServicesProcess": {
+      "payLoad": [
+        {
+          "productId": "GUID",
+          "cpq_quotelineidentifier": "12345",
+          "cpq_integration": true
+        },
+        {
+          "productId": "GUID",
+          "pricingComponentId": "GUID",
+          "cpq_quotelineidentifier": "54321",
+          "cpq_integration": true
+        }
+      ]
+    },
+    "SaveQuote": {
+      "payLoad": {
+        "cpq_quotenumber": "12345",
+        "cpq_status": "BLAH"
+      }
+    },
+    "accountpayloads": {
+      "payload": [
+        {
+          "accountid": "3f8ad126-25c7-e711-9a56-001dd8b71fd8",
+          "new_county": "account1-county1",
+          "websiteurl": "www.account1ver1.com"
+        },
+        {
+          "accountid": "0be45337-e4a2-e311-9d70-005056a619f3",
+          "new_county": "account2-county1",
+          "websiteurl": "www.account2ver1.com"
+        }
+      ]
+    }
+  }
+}

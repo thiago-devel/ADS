@@ -1,0 +1,317 @@
+#%RAML 1.0
+title: CPQ Experience Layer API
+description: Front End Layer API for the CPQ project
+version: v1
+mediaType: application/json
+baseUri: http://0.0.0.0:443/api
+
+traits:
+  client-id-required:
+    headers:
+      client_id:
+        type: string
+      client_secret:
+        type: string
+
+uses:
+  service-agreement-put-type: libraries/service-agreement-put.raml
+  service-agreement-post-type: libraries/service-agreement-post.raml
+  quotes-post-type: libraries/quotes-post.raml
+  
+/v1:
+  /test:
+    description: test for .NET issue and connectivity
+    is: [client-id-required]
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/d365_get_account_response.json
+  /cpq:
+    description: CPQ Experience Layer base path
+    /account:
+      description: simple test URI
+      is: [client-id-required]
+      get:
+       description: NOT IMPLEMENTED Query D365 data, returning the fields specified in selectFields. The triggerName determines the table queried.
+       headers:
+        triggerName:
+          example: 'refreshAcct'
+          required: true
+        accountId:
+          example: '3f8ad126-25c7-e711-9a56-001dd8b71fd8'
+          required: false
+        selectFields:
+          example: 'accountid,address1_addressid,name,new_county,websiteurl'
+          required: false
+        cpqInstance:
+          example: 'advancedconnectdev2'
+          required: false
+        emailAddress:
+          example: 'user@domain.local'
+          required: false
+        signerEmail:
+          example: 'customer@domain.local'
+          required: false
+        countersignerEmail:
+          example: 'user@advanceddisposal.com'
+          required: false
+       responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/d365_get_account_response.json
+      post:
+        description: NO LONGER IMPLEMENTED Test for a return payload
+        headers:
+          Access-Control-Allow-Origin:
+            example: '*'
+            required: true
+        body:
+          application/json:
+            required: true
+            description: return CPQ data for the transaction
+            example: !include examples/d365_update_account_request.json
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/d365_update_account_response.json
+    /accounts:
+      is: [client-id-required]
+      description: return a contact based on accountId
+      get:
+        headers:
+          accountId:
+            example: '72134263-855e-e311-899e-005056ab004d'
+            required: false
+        responses:
+          200:
+              body:
+                application/json:
+                  example: !include examples/sample_d365_userquery_post_response.json
+    /contacts:
+      is: [client-id-required]
+      description: return a particular contact
+      get:
+        headers:
+          contactId:
+            example: '4e8559ef-cf21-e811-8108-3863bb3c4538'
+            required: false
+        responses:
+          200:
+              body:
+                application/json:
+                  example: !include examples/sample_d365_contacts_get_response.json
+    /customers:
+      is: [client-id-required]
+      description: quote operations into CPQ
+      post:
+        description: Trigger customer creation process for forms and eventually TRUX
+        body:
+          application/json:
+            required: true
+            description: create forms and TRUX customers with sites and services
+            example: !include examples/sample_post_customers_body.json
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/sample_response.json
+    /travelTime:
+      description: Get distance
+      is: [client-id-required]
+      get:
+        description: get the distance between origin and destination addresses
+        queryParameters:
+          originCoordinates:
+            description: origin address
+            example: 44.5230672,-88.0889164
+            type: string
+            required: true
+          destinationCoordinates:
+            description: destination address
+            example: 43.9497956,-88.0878757 
+            type: string
+            required: true
+        responses:
+            200:
+              body:
+                application/json:
+                  example: !include examples/get-distance-response.json
+    /geoCodes:
+      description: geo code operations
+      is: [client-id-required]
+      get:
+        description: return geo codes given an address
+        queryParameters:
+          address:
+            description: address to look up
+            example: 90 Fort Wade Road Ponte Vedra FL 32081
+            type: string
+            required: true
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/get-geocodes-response.json
+    /locations:
+      is: [client-id-required]
+      description: location operations
+      get:
+        description: return a location
+        headers:
+          accountId:
+            required: true
+        responses:
+          200:
+              body:
+                application/json:
+                  example: !include examples/sample_d365_userquery_post_response.json
+
+    /quotes:
+      is: [client-id-required]
+      description: quote operations into CPQ
+      post:
+        description: Either create or clone a quote
+        body:
+          application/json:
+            type: quotes-post-type.quote-post
+            required: true
+            description: update a service agreement
+            example: !include examples/quotes-post-body.json
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/sample_response.json
+      get:
+        description: get quote details
+        headers:
+          quoteId:
+            required: true
+            description: crmQuoteId value to lookup in D365
+            example: 'f10a297d-14a9-e711-8105-c4346bdc0371'
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/sample_response.json
+      put:
+        description: Change a quote/transaction, in particular status
+        body:
+          application/json:
+            required: true
+            description: update a service agreement
+            example: !include examples/quotes-put-body.json
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/sample_response.json
+    /saveQuoteBatchUpdate:
+      is: [client-id-required]
+      description: batch upload quote information typically from CPQ to D365
+      post:
+        body:
+          application/json:
+            required: true
+            description: Update the quote based on the payload.
+            example: !include examples/sample_d365_savequotebatch_post_body.json
+        responses:
+          200:
+              body:
+                application/json:
+    /serviceAgreements:
+      description: All service agreement operations
+      is: [client-id-required]
+      post:
+        description: 'Send/Create a service agreement: This goes to the document manager listener'
+        body:
+          application/json:
+#            type: service-agreement-post-type.service-agreement-post
+            required: true
+            description: update a service agreement
+            example: !include examples/service-agreement-post-body.json
+        responses:
+          200:
+            body:
+              application/json:
+      put:
+        body:
+          application/json:
+#            type: service-agreement-put-type.service-agreement-put
+            required: true
+            description: Cancel a service agreement. In the future there may be more options, but for now all PUTs are cancel.
+            example: !include examples/service-agreement-put-body.json
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/service-agreement-put-200-response.json
+          207:
+            body:
+              application/json:
+                example: !include examples/service-agreement-put-207-response.json
+    /services:
+      description: Get Service Availability
+      is: [client-id-required]
+      get:
+        description: return service availability info
+        queryParameters:
+          latitude:
+            description: latitude
+            example: 44.5230672
+            type: number
+            required: true
+          longitude:
+            description: longitude
+            example:  -88.0889164
+            type: number
+            required: true
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/get-sa-response.json
+    /taxes:
+      description: Get Tax Info
+      get:
+        description: return tax info
+        queryParameters:
+          latitude:
+            description: latitude
+            example: 44.5230672
+            type: number
+            required: true
+          longitude:
+            description: longitude
+            example:  -88.0889164
+            type: number
+            required: true
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/get-taxes-response.json                
+    /users:
+      is: [client-id-required]
+      description: user related operations
+      get:
+        description: get user with the parameter indicated criteria
+        queryParameters:
+          cpqUserLogin:
+              required: false
+        headers:
+          userEmail:
+              required: false
+          userName:
+              required: false
+          userId:
+              required: false
+        responses:
+          200:
+              body:
+                application/json:
+                  example: !include examples/sample_d365_userquery_post_response.json

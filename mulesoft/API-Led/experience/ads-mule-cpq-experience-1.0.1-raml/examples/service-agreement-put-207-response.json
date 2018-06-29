@@ -1,0 +1,21 @@
+{
+    "status": 207,
+    "message": {
+        "message": "One or more system failed to update",
+        "correlationId": "3f5084c0-28a0-11e8-8d12-58fb842ff914",
+        "customError": [
+            {
+                "status": 400,
+                "message": "An error occurred while processing the request.",
+                "errorMesage": "ADOBE Failed to Be Updated -- BAD_REQUEST"
+            }
+        ]
+    },
+    "customError": [
+        {
+            "status": 400,
+            "message": "An error occurred while processing the request.",
+            "errorMesage": "ADOBE Failed to Be Updated -- BAD_REQUEST"
+        }
+    ]
+}
