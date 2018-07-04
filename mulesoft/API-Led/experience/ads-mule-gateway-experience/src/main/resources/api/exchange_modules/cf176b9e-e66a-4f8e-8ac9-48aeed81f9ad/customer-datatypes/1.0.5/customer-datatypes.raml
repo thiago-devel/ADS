@@ -1,0 +1,25 @@
+#%RAML 1.0 Library
+
+usage: Customer Types
+
+uses:
+  phone: /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-datatype/1.0.4/phonesTypes.raml
+  address: /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-datatype/1.0.4/locationsTypes.raml
+
+types:
+  NewCustomer:
+    properties:
+      name:
+      email:
+      phone: phone.PhoneData
+      serviceAddress: address.AddressData
+      billingAddress: address.AddressData
+      truxDB: string
+      truxAccountID: number
+      truxSiteID: number
+      dynamicsID: number
+      
+  Customer:
+    type: NewCustomer
+    properties:
+      customerID: number

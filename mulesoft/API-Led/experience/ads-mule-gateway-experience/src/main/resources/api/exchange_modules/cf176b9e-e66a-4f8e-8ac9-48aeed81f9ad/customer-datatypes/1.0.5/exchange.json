@@ -1,0 +1,1 @@
+{"main":"customer-datatypes.raml","name":"ads-mule-customer-datatypes","classifier":"raml-fragment","tags":["library"],"groupId":"cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad","assetId":"customer-datatypes","version":"1.0.5","dependencies":[{"groupId":"cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad","assetId":"commons-datatype","version":"1.0.4"}]}

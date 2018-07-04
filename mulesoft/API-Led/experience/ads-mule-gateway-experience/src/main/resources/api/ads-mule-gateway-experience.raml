@@ -1,0 +1,87 @@
+#%RAML 1.0
+version: v1
+title: gateway-api
+
+mediaType: application/json
+
+uses:
+  traits: /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-traits/1.0.1/traits.raml
+  customer: /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-datatypes/1.0.5/customer-datatypes.raml
+  payments: /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/payment-datatypes/1.0.10/payment-datatypes.raml
+
+#Customer
+/customers:
+  get:
+    is: [ traits.secure ]
+    description: Retrieve all the eisting customers.
+    responses: 
+      200:
+        body: 
+          type: customer.Customer[]
+          example: !include /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-examples/1.0.4/customer-list.raml
+  post:
+    is: [ traits.secure ]
+    description: Create a new customer.
+    body:
+      type: customer.NewCustomer
+      example: !include /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-examples/1.0.4/new-customer.raml
+    responses: 
+        201:
+          headers: 
+            Content-Location:
+              type: string
+              example: https://mocksvc.mulesoft.com/mocks/4226505d-4d39-4fd6-ae54-b4cec3b9be9c/customer/14782369
+  /{customerID}:
+    get:
+      is: [ traits.secure ]
+      description: Retrieve a customer data or a 404 error if the customer doesn't exist.
+      responses: 
+        200:
+          body:
+            type: customer.Customer
+            example: !include /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-examples/1.0.4/existing-customer.raml
+        404:
+    patch:
+      is: [ traits.secure ]
+      description: Upate an existing customer.
+      body:
+        type: customer.Customer
+        example: !include /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-examples/1.0.4/existing-customer.raml
+      responses: 
+        204:
+
+#Payment
+/payments:
+  /{customerID}:
+    get:
+      is: [ traits.secure ]
+      description: Retrieve all payment methods of a provided customer
+      responses:
+        200:
+          body: 
+            type: payments.CustomerPayment
+        404:
+
+  /{customerID}/card:
+    post:
+      is: [ traits.secure ]
+      description: Add a new card payment info of a provided customer and return the path to retrieve its info
+      body:
+        type: payments.NewCustomerPayment
+        example: !include /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/payment-examples/1.0.7/new-payment-example.raml
+      responses: 
+        201:
+          headers: 
+            Content-Location:
+              type: string
+              example: https://mocksvc.mulesoft.com/mocks/775ff22b-9608-4e78-96c2-2bfe27150187/payments/14782369/card/12345
+
+  /{customerID}/card/{paymentID}:
+    get:
+      is: [ traits.secure ]
+      description: Retrieve a card payment info of customer or a 404 error if there is no data.
+      responses: 
+        200:
+          body:
+            type: payments.CardPaymentData
+        404:    
