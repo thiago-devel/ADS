@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mycompany</groupId>
-	<artifactId>ads-mule-gateway-experience</artifactId>
+	<artifactId>ads-mule-eservices-experience</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>mule-application</packaging>
 
-	<name>ads-mule-gateway-experience</name>
+	<name>ads-mule-eservices-experience</name>
 
     <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

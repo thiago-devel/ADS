@@ -1,15 +1,14 @@
 #%RAML 1.0
-version: v1
-title: gateway-api
+baseUri: https://mocksvc.mulesoft.com/mocks/81fcde13-ae94-4197-80b7-c21ed92ea51f # 
+version: v2
+title: customer-api
 
 mediaType: application/json
 
 uses:
   traits: /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-traits/1.0.1/traits.raml
   customer: /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-datatypes/1.0.5/customer-datatypes.raml
-  payments: /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/payment-datatypes/1.0.10/payment-datatypes.raml
 
-#Customer
 /customers:
   get:
     is: [ traits.secure ]
@@ -49,39 +48,3 @@ uses:
         example: !include /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/customer-examples/1.0.4/existing-customer.raml
       responses: 
         204:
-
-#Payment
-/payments:
-  /{customerID}:
-    get:
-      is: [ traits.secure ]
-      description: Retrieve all payment methods of a provided customer
-      responses:
-        200:
-          body: 
-            type: payments.CustomerPayment
-        404:
-
-  /{customerID}/card:
-    post:
-      is: [ traits.secure ]
-      description: Add a new card payment info of a provided customer and return the path to retrieve its info
-      body:
-        type: payments.NewCustomerPayment
-        example: !include /exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/payment-examples/1.0.7/new-payment-example.raml
-      responses: 
-        201:
-          headers: 
-            Content-Location:
-              type: string
-              example: https://mocksvc.mulesoft.com/mocks/775ff22b-9608-4e78-96c2-2bfe27150187/payments/14782369/card/12345
-
-  /{customerID}/card/{paymentID}:
-    get:
-      is: [ traits.secure ]
-      description: Retrieve a card payment info of customer or a 404 error if there is no data.
-      responses: 
-        200:
-          body:
-            type: payments.CardPaymentData
-        404:    

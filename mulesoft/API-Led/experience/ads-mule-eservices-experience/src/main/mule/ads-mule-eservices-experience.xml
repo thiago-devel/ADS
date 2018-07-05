@@ -18,7 +18,7 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 			</tls:context>
 		</http:listener-connection>
     </http:listener-config>
-    <apikit:config name="ads-mule-gateway-experience-config" raml="api/ads-mule-gateway-experience.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="ads-mule-gateway-experience-config" raml="api/ads-mule-eservices-experience.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <global-property doc:name="Global Property" doc:id="f57d189a-6879-497d-91bb-f4919fa596fd" name="https.port" value="8082" />
 	<flow name="ads-mule-gateway-experience-main">
         <http:listener config-ref="ads-mule-gateway-experience-httpsListenerConfig" path="/api/*">
@@ -230,7 +230,7 @@ output application/json
     <flow name="get:\customers\(customerID):ads-mule-gateway-experience-config">
     		<choice doc:name="Choice" >
             <when expression="#[(attributes.headers.client_id == vars.client_id_magic) and (attributes.headers.client_secret == vars.client_secret_magic)]">
-		        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+				<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 		            <ee:variables>
 		                <ee:set-variable variableName="customerID">attributes.uriParams.customerID</ee:set-variable>
 		            </ee:variables>
@@ -292,7 +292,7 @@ output application/java
 		        </ee:transform>
             </when>
             <otherwise>
-                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:name="Not found" >
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:name="Not found" doc:id="e8ee2a81-3d5d-4a59-b782-c7e414d964aa">
                     <ee:message />
                     <ee:variables>
                         <ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
@@ -372,15 +372,15 @@ output application/json
     <flow name="post:\payments\(customerID)\card:application\json:ads-mule-gateway-experience-config">
         <choice doc:name="Choice" >
             <when expression="#[(attributes.headers.client_id == vars.client_id_magic) and (attributes.headers.client_secret == vars.client_secret_magic)]">
-		        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+		        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="d810b8a4-5f14-4516-b1b6-70a5c396696c">
 		            <ee:variables>
-		                <ee:set-variable variableName="customerID">attributes.uriParams.customerID</ee:set-variable>
+		                <ee:set-variable variableName="customerID"><![CDATA[attributes.uriParams.customerID]]></ee:set-variable>
 		            </ee:variables>
 		        </ee:transform>
                 <flow-ref doc:name="postPayment-subflow"  name="postPayment-subflow" />
             </when>
             <otherwise>
-                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:name="Unauthorized" >
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:name="Unauthorized" doc:id="5f924ad4-3711-4a11-95f1-0558a78b6d07">
                     <ee:message />
                     <ee:variables>
                         <ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
@@ -393,18 +393,42 @@ output application/java
         </choice>
     </flow>
     <sub-flow name="postPayment-subflow">
-    
-        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" doc:id="4ce5f0fb-4ba9-43e6-add1-0ba9db34ed2c">
-            <ee:variables>
-                <ee:set-variable variableName="customerID"><![CDATA[attributes.uriParams.customerID]]></ee:set-variable>
+		<choice doc:name="Choice" doc:id="911c929f-7066-433d-b78a-c0f50126b47f" >
+			<when expression="#[vars.customerID == '14782369']" >
+				<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" doc:id="4ce5f0fb-4ba9-43e6-add1-0ba9db34ed2c">
+            <ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+""]]></ee:set-payload>
+			</ee:message>
+			<ee:variables>
                 <ee:set-variable variableName="outboundHeaders"><![CDATA[%dw 2.0
 output application/java
 ---
 {
-	"Content-Location": (attributes.headers.origin as String) ++ "/api/payments/" ++ vars.customerID ++ "/card/" ++ "852369"
+	"Content-Location": (attributes.scheme as String) ++ "://" ++ (attributes.headers.host as String) ++ "/api/payments/" ++ vars.customerID ++ "/card/" ++ "852369"
 }]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <logger level="INFO" message="post:\payments\(customerID)\card:application\json:payment-exp-api-config" />
+				<logger level="INFO" message="post:\payments\(customerID)\card:application\json:payment-exp-api-config" />
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Not found" doc:id="03addf22-e7f1-45ea-a9a2-3484f17731e1" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+""]]></ee:set-payload>
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[%dw 2.0
+output application/java
+---
+404]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</otherwise>
+		</choice>
     </sub-flow>
 </mule>

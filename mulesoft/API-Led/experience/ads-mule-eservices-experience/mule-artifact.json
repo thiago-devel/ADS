@@ -1,10 +1,10 @@
 {
   "configs": [
-    "ads-mule-gateway-experience.xml"
+    "ads-mule-eservices-experience.xml"
   ],
   "secureProperties": [],
   "redeploymentEnabled": true,
-  "name": "ads-mule-gateway-experience",
+  "name": "ads-mule-eservices-experience",
   "minMuleVersion": "4.1.1",
   "requiredProduct": "MULE_EE",
   "classLoaderModelLoaderDescriptor": {
@@ -13,7 +13,7 @@
       "exportedPackages": [],
       "exportedResources": [
         "api/.DS_Store",
-        "api/ads-mule-gateway-experience.raml",
+        "api/ads-mule-eservices-experience.raml",
         "api/exchange.json",
         "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-datatype/1.0.4/exchange.json",
         "api/exchange_modules/cf176b9e-e66a-4f8e-8ac9-48aeed81f9ad/commons-datatype/1.0.4/locationsTypes.raml",
