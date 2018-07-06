@@ -3,6 +3,3 @@ metadata/
 .mule/
 .metadata/
 .DS_Store
-product-google-integration/target
-product-google-integration/.classpath
-product-google-integration/.project
