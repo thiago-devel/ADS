@@ -20,6 +20,9 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
     </http:listener-config>
     <apikit:config name="ads-mule-gateway-experience-config" raml="api/ads-mule-eservices-experience.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <global-property doc:name="Global Property" doc:id="f57d189a-6879-497d-91bb-f4919fa596fd" name="https.port" value="8082" />
+	<http:request-config name="Customer_API_configuration" doc:name="HTTP Request configuration" doc:id="2d2f0149-850b-46cb-ae89-307b00e232b3" basePath="/api" >
+		<http:request-connection protocol="HTTPS" host="ads-mule-customer-process.cloudhub.io" port="443" />
+	</http:request-config>
 	<flow name="ads-mule-gateway-experience-main">
         <http:listener config-ref="ads-mule-gateway-experience-httpsListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -153,89 +156,71 @@ output application/json
         </error-handler>
     </flow>
     <flow name="patch:\customers\(customerID):application\json:ads-mule-gateway-experience-config">
-        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core">
-            <ee:variables>
-                <ee:set-variable variableName="customerID">attributes.uriParams.customerID</ee:set-variable>
-            </ee:variables>
-        </ee:transform>
-        <logger level="INFO" message="patch:\customers\(customerID):application\json:ads-mule-gateway-experience-config" />
+		<choice doc:name="Confirm client_id and client_secret" doc:id="5118e833-e0a5-470d-b0f3-f2476af7bbbe" >
+			<when expression="#[(attributes.headers.client_id == vars.client_id_magic) and (attributes.headers.client_secret == vars.client_secret_magic)]" >
+				<ee:transform doc:name="set customerID var" doc:id="f7fd4a21-73d9-444c-a5aa-3cb1a4623cae" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+					<ee:variables>
+						<ee:set-variable variableName="customerID"><![CDATA[attributes.uriParams.customerID default ""]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<http:request method="PATCH" doc:name="Customer API - PATCH an existing Customer" doc:id="a04ee935-2e74-4404-b9ec-05153d8ae371" config-ref="Customer_API_configuration" path="/customers/{customerID}">
+					<http:uri-params ><![CDATA[#[output applicaton/java
+---
+{
+	"customerID" : vars.customerID
+}]]]></http:uri-params>
+				</http:request>
+				<logger level="INFO" doc:name="Logger" doc:id="8761c1a2-db1d-42c7-a717-35b5bc1078c3" message="patch:\customers\(customerID):application\json:ads-mule-eservices-experience-config"/>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Unauthorized" doc:id="a2c4fab9-7290-474a-adf3-174cfa8ce821" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" >
+					<ee:message />
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[%dw 2.0
+output application/java
+---
+401]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</otherwise>
+		</choice>
     </flow>
     <flow name="get:\customers:ads-mule-gateway-experience-config">
-        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
+		<choice doc:name="Confirm client_id and client_secret" doc:id="1652f084-eb7e-4ec1-9662-bd5cb61dcde5" >
+			<when expression="#[(attributes.headers.client_id == vars.client_id_magic) and (attributes.headers.client_secret == vars.client_secret_magic)]" >
+				<http:request method="GET" doc:name="Customer API - GET all Customers" doc:id="8274d271-463e-437d-9106-e5af9c92b468" config-ref="Customer_API_configuration" path="/customers" >
+				</http:request>
+				<logger level="INFO" doc:name="Logger" doc:id="0c673ea2-2110-41a9-a50f-d008fcfa85e8" message="#[message]"/>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Unauthorized" doc:id="e6d0de37-a37e-416d-80fa-9cfe706aa4d0" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" >
+					<ee:message />
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[%dw 2.0
+output application/java
 ---
-[
-  {
-    customerID: 14782369,
-    name: "Thiago Santana",
-    email: "thiago.santana@advanceddisposal.com",
-    phone: {
-      country: 1,
-      area: 904,
-      number: 7377900
-    },
-    serviceAddress: {
-      country: "USA",
-      state: "FL",
-      city: "Ponte Vedra",
-      street_address: "90 Fort Wade Road, Suite 200",
-      zip: 94108
-    },
-    billingAddress: {
-      country: "USA",
-      state: "FL",
-      city: "Ponte Vedra",
-      street_address: "90 Fort Wade Road, Suite 200",
-      zip: 94108
-    },
-    truxDB: "Ponte Vedra",
-    truxAccountID: 987654321,
-    truxSiteID: 654321,
-    dynamicsID: 456789
-  }, 
-  {
-    customerID: 369852147,
-    name: "Renata Santana",
-    email: "renata.santana@advanceddisposal.com",
-    phone: {
-      country: 1,
-      area: 904,
-      number: 7377900
-    },
-    serviceAddress: {
-      country: "USA",
-      state: "FL",
-      city: "Ponte Vedra",
-      street_address: "90 Fort Wade Road, Suite 200",
-      zip: 94108
-    },
-    billingAddress: {
-      country: "USA",
-      state: "FL",
-      city: "Ponte Vedra",
-      street_address: "90 Fort Wade Road, Suite 200",
-      zip: 94108
-    },
-    truxDB: "Ponte Vedra",
-    truxAccountID: 987654321,
-    truxSiteID: 654321,
-    dynamicsID: 456789
-  }
-]]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+401]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</otherwise>
+		</choice>
     </flow>
     <flow name="get:\customers\(customerID):ads-mule-gateway-experience-config">
-    		<choice doc:name="Choice" >
+    		<choice doc:name="Confirm client_id and client_secret" >
             <when expression="#[(attributes.headers.client_id == vars.client_id_magic) and (attributes.headers.client_secret == vars.client_secret_magic)]">
-				<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+				<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="0a3f63ed-ed68-4020-a591-c34c16ff84dc" doc:name="set customerID var">
 		            <ee:variables>
-		                <ee:set-variable variableName="customerID">attributes.uriParams.customerID</ee:set-variable>
+		                <ee:set-variable variableName="customerID"><![CDATA[attributes.uriParams.customerID default ""]]></ee:set-variable>
 		            </ee:variables>
 		        </ee:transform>
-                <flow-ref doc:name="getCustomer-Subflow"  name="getCustomer-Subflow" />
+				<http:request method="GET" doc:name="Customer API - GET a customer" doc:id="7a044fab-b213-4e39-b5ec-ff903a0c91aa" config-ref="Customer_API_configuration" path="/customers/{customerID}" >
+					<http:uri-params ><![CDATA[#[output applicaton/java
+---
+{
+	"customerID" : vars.customerID
+}]]]></http:uri-params>
+				</http:request>
+				<logger level="INFO" doc:name="Logger" doc:id="62406be8-0b3b-4663-a7b1-c50cc08793bb" message="#[message]"/>
             </when>
             <otherwise>
                 <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:name="Unauthorized" >
@@ -250,62 +235,52 @@ output application/java
             </otherwise>
         </choice>
     </flow>
-    <sub-flow name="getCustomer-Subflow">
-    
-    		<choice doc:name="Choice" >
-            <when expression="#[vars.customerID == '14782369']">
-				        
-		        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="2500f100-c797-4582-9426-59627b03a6cc">
-		            <ee:message>
-		                <ee:set-payload><![CDATA[%dw 2.0
-		output application/json
-		---
-		{
-		  customerID: 14782369,
-		  name: "Thiago Santana",
-		  email: "thiago.santana@advanceddisposal.com",
-		  phone: {
-		    country: 1,
-		    area: 904,
-		    number: 7377900
-		  },
-		  serviceAddress: {
-		    country: "USA",
-		    state: "FL",
-		    city: "Ponte Vedra",
-		    street_address: "90 Fort Wade Road, Suite 200",
-		    zip: 94108
-		  },
-		  billingAddress: {
-		    country: "USA",
-		    state: "FL",
-		    city: "Ponte Vedra",
-		    street_address: "90 Fort Wade Road, Suite 200",
-		    zip: 94108
-		  },
-		  truxDB: "Ponte Vedra",
-		  truxAccountID: 987654321,
-		  truxSiteID: 654321,
-		  dynamicsID: 456789
-		}]]></ee:set-payload>
-		            </ee:message>
-		        </ee:transform>
-            </when>
-            <otherwise>
-                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:name="Not found" doc:id="e8ee2a81-3d5d-4a59-b782-c7e414d964aa">
-                    <ee:message />
-                    <ee:variables>
-                        <ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
+    <flow name="post:\customers:application\json:ads-mule-gateway-experience-config">
+		<choice doc:name="Confirm client_id and client_secret" doc:id="81bd589f-c343-4a46-b92d-e5934179bbc7" >
+			<when expression="#[(attributes.headers.client_id == vars.client_id_magic) and (attributes.headers.client_secret == vars.client_secret_magic)]" >
+				<ee:transform doc:name="Set vars" doc:id="1c043194-3874-448a-8b36-2f03ac33477b" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" >
+					<ee:variables >
+						<ee:set-variable variableName="origin_request" ><![CDATA[attributes.scheme]]></ee:set-variable>
+						<ee:set-variable variableName="origin_host" ><![CDATA[attributes.headers.host]]></ee:set-variable>
+						<ee:set-variable variableName="customerID" ><![CDATA[%dw 2.0
 output application/java
 ---
-404]]></ee:set-variable>
-                    </ee:variables>
-                </ee:transform>
-            </otherwise>
-        </choice>
-    </sub-flow>
-    <flow name="post:\customers:application\json:ads-mule-gateway-experience-config">
-		<logger level="INFO" message="post:\customers:application\json:ads-mule-gateway-experience-config" />
+14782369]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<http:request method="POST" doc:name="Customer API - POST a new customer" doc:id="29406a7d-4ba8-422c-8dce-6d606073e95c" config-ref="Customer_API_configuration" path="/customers" targetValue='""'>
+					<http:uri-params ><![CDATA[#[output applicaton/java
+---
+{
+	"customerID" : vars.customerID
+}]]]></http:uri-params>
+				</http:request>
+				<ee:transform doc:name="Transform Message" doc:id="c64ac28b-e9ef-4c80-ae94-5c0acf965543">
+					<ee:message>
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="outboundHeaders" ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"Content-Location": (vars.origin_request as String) ++ "://" ++ (vars.origin_host as String) ++ "/api/customers/" ++ vars.customerID
+}]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="162eb54d-656c-44e3-909b-4eb68454e47d" message="post:\customers:application\json:ads-mule-eservices-experience-config"/>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Unauthorized" doc:id="bf30d64d-00a0-41a8-b482-dec349deaa48" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" >
+					<ee:message />
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[%dw 2.0
+output application/java
+---
+401]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</otherwise>
+		</choice>
     </flow>
     <flow name="get:\payments\(customerID):ads-mule-gateway-experience-config">
         <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core">

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
-http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
     <http:listener-config name="customer-exp-api-httpsListenerConfig">
         <http:listener-connection host="0.0.0.0" port="${https.port}" protocol="HTTPS">
 			<tls:context >
@@ -131,9 +132,9 @@ output application/json
         </error-handler>
     </flow>
     <flow name="patch:\customers\(customerID):application\json:customer-exp-api-config">
-        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core">
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" doc:id="d073fd97-4e90-4c39-ab93-61e6e657bd09">
             <ee:variables>
-                <ee:set-variable variableName="customerID">attributes.uriParams.customerID</ee:set-variable>
+                <ee:set-variable variableName="customerID"><![CDATA[attributes.uriParams.customerID]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
         <logger level="INFO" message="patch:\customers\(customerID):application\json:customer-exp-api-config" />
@@ -268,6 +269,32 @@ output application/java
         </choice>
     </sub-flow>
     <flow name="post:\customers:application\json:customer-exp-api-config">
-        <logger level="INFO" message="post:\customers:application\json:customer-exp-api-config" />
+		<ee:transform doc:name="Transform Message" doc:id="75e5d276-300a-4ac5-8703-2338211b7f16" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="customerID" ><![CDATA[%dw 2.0
+output application/java
+---
+14782369]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="0fda4594-91fc-4877-9f6f-612a53a23cff" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+""]]></ee:set-payload>
+			</ee:message>
+			<ee:variables>
+                <ee:set-variable variableName="outboundHeaders"><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"Content-Location": (attributes.scheme as String) ++ "://" ++ (attributes.headers.host as String) ++ "/api/customers/" ++ vars.customerID
+}]]></ee:set-variable>
+            </ee:variables>
+		</ee:transform>
+		<logger level="INFO" message="post:\customers:application\json:customer-exp-api-config" />
     </flow>
 </mule>
